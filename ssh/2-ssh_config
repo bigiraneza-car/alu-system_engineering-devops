@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 #This script configure the client file
+#PasswordAuthentication no
+#IndetifyFile ~/.ssh/school
 ssh -v ubuntu@7287-web-01
