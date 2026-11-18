@@ -8,7 +8,11 @@ echo "Holberton School is cool" > /var/www/html/index.html
 
 #redirection
 if ! grep -q "redirect_me" /etc/nginx/sites-available/default; then
-        sed -i 's|server_name _;|server_name _;\n\tlocation /redirect_me {\n\treturn 301 https://www.youtube.com/;\n\t}\n\terror_page 404 /404.html;|' /etc/nginx/sites-available/default
+        sed -i 's|server_name _;|server_name _;\n\tlocation /redirect_me {\n\treturn 301 https://www.youtube.com/;\n\t}|' /etc/nginx/sites-available/default
 
+fi
+
+if ! grep -q "error_page 404" /etc/nginx/sites-available/default; then
+	sed -i "s|server_name _;|server_name _;\n\terror_page 404 /404.html;|" /etc/nginx/sites-available/default
 fi
 sudo service nginx restart
