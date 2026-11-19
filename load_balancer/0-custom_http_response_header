@@ -17,8 +17,8 @@ if ! grep -q "error_page 404" /etc/nginx/sites-available/default; then
 fi
 
 #custom header
-if !grep -q "X-Served-By" /etc/nginx/sites_available/default; then
-	sed -i "s|server_name _;|server_name _;\n\tadd_header X-Served_By $hostname;|" /etc/nginx/sites_available/default
+if ! grep -q "X-Served-By" /etc/nginx/sites-available/default; then
+	sed -i 's|server_name _;|server_name _;\n\tadd_header X-Served-By $hostname;|' /etc/nginx/sites-available/default
 fi
 
 sudo service nginx restart
