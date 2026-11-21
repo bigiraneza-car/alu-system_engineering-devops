@@ -1,4 +1,24 @@
 #!/usr/bin/env bash
 #install HAproxy and configure it to serve on web-01 and web-02
 sudo apt update
-sudo apt install -y HAproxy
+sudo apt-get install -y haproxy
+
+#let the init script manage HAproxy
+echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+
+#add the frontend and backend config
+sudo tee -a /etc/haproxy/haproxy.cfg > /dev/null <<EOF
+
+frontend http_front
+    bind *:80
+    mode http
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server 1128579250-web-01 18.130.48.38:80 check
+    server 1128579250-web-02 16.61.221.255:80 check
+
+EOF
+
+sudo service haproxy restart
