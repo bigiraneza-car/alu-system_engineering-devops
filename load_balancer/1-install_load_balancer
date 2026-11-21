@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#install HAproxy and configure it to serve on web-01 and web-02
+sudo apt update
+sudo apt install -y HAproxy
